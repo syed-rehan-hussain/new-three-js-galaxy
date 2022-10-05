@@ -29,12 +29,12 @@ function createStats() {
 const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({canvas});
 
-const fov = 45;
+const fov = 90;
 const aspect = 2;  // the canvas default
 const near = 0.1;
-const far = 100;
+const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(0, 10, 20);
+camera.position.set(0, 120, -50);
 const controls = new OrbitControls(camera, canvas);
 controls.target.set(0, 5, 0);
 controls.update();
@@ -43,19 +43,21 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xB1E1FF);
 
 {
-    const planeSize = 40;
+    const planeSize = 50;
     const loader = new THREE.TextureLoader();
-    const texture = loader.load('https://media.istockphoto.com/vectors/green-grass-striped-realistic-textured-background-vector-id1208398773?k=20&m=1208398773&s=612x612&w=0&h=5U8Aztjxs172axZp8G4RRfNI-v0CHtC8HseTGK-7cUA=');
+    const texture = loader.load('https://thumbs.dreamstime.com/b/moon-surface-seamless-texture-background-closeup-moon-surface-texture-188679621.jpg');
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.magFilter = THREE.NearestFilter;
-    const repeats = planeSize / 12;
+    const repeats = planeSize / 8;
     texture.repeat.set(repeats, repeats);
 
-    const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
-    const planeMat = new THREE.MeshPhongMaterial({
+    // const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+    const planeGeo = new THREE.SphereGeometry( planeSize, planeSize, planeSize );
+    const planeMat = new THREE.MeshLambertMaterial({
         map: texture,
         side: THREE.DoubleSide,
+        roughness:10.5,
     });
     const mesh = new THREE.Mesh(planeGeo, planeMat);
     mesh.rotation.x = Math.PI * -.5;
@@ -64,16 +66,16 @@ scene.background = new THREE.Color(0xB1E1FF);
 
 {
     const color = 0xF6F6F6;
-    const intensity = 0.6;
+    const intensity = 1;
     const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(10, 40, 0);
-    light.target.position.set(-5, 5, 5);
+    light.position.set(0, 70, 0);
+    light.target.position.set(40, 40, 0);
     scene.add(light);
     scene.add(light.target);
     const light1 = new THREE.DirectionalLight(color, intensity);
-    light1.position.set(-50, 10, 0);
-    light1.target.position.set(5, 5, 5);
-    scene.add(light1);
+    light1.position.set(0, -70, 0);
+    light1.target.position.set(0, 0, 0);
+    // scene.add(light1);
     scene.add(light1.target);
 }
 
@@ -100,7 +102,7 @@ objloader.load(
     // called when resource is loaded
 function ( object ) {
     
-    object.scale.set(0.1, 0.1, 0.1);
+    object.scale.set(0.3, 0.3, 0.3);
     object.position.set(0, 2, 0)
     scene.add( object );
     flyobj=object;
@@ -140,7 +142,7 @@ function GetPoints(){
 }
 function chngPos(a){
     if(a==5) index=194;
-    flyobj.position.set(x_coo[a],y_coo[a] , z_coo[a]);
+    flyobj.position.set(x_coo[a],y_coo[a]+48 , z_coo[a]);
     // flyobj.rotation.x+=0.1;
     // flyobj.rotation.z+=0.1;
     // flyobj.rotation.y-=0.2 ;

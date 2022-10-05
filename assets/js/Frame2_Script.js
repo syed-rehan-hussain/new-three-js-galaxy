@@ -119,10 +119,10 @@ const sound = new THREE.Audio( listener );
 
 // load a sound and set it as the Audio object's buffer
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load( 'assets/textures/audio/download.mp3', function( buffer ) {
+audioLoader.load( 'assets/textures/audio/harry.mp3', function( buffer ) {
 	sound.setBuffer( buffer );
 	sound.setLoop( true );
-	sound.setVolume( 0.5 );
+	sound.setVolume( 100 );
     sound.play();
 });
 }
@@ -190,9 +190,9 @@ function draw() {
         dragon.position.x += 0.25;
       } else {
         if (window.location.pathname.includes("frame1")) {
-          window.location.href = "/sprite/frame2.html";
+          window.location.href = "/test_prog_CG_UNI/sprite/frame2.html";
         } else if (window.location.pathname.includes("frame2")) {
-          window.location.href = "/sprite/frame3.html";
+          window.location.href = "/test_prog_CG_UNI/sprite/frame3.html";
         }
       }
     }
